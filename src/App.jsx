@@ -5,28 +5,47 @@ function App() {
 
   const contactInfo = {
     name: "Grayson Patterson",
+    company: "Auto-Owners Insurance",
     title: "Field Claims Representative",
-    phone: "4704552576",
-    email: "graysonbpatterson@gmail.com",
-    website: "https://degenduffparlays.com",
-    location: "Atlanta, GA", // Added location for completeness
+    phone: "7704246582,54391",
+    email: "patterson.grayson@aoins.com",
+    website: "https://auto-owners.com",
+    location: "Atlanta, GA",
     pfp: "/pfp.jpg",
     logo: "/logo.jpg"
   };
 
-  const generateVCard = () => {
+  const generateVCard = async () => {
+    // Fetch and convert profile picture to base64
+    let photoBase64 = '';
+    try {
+      const response = await fetch(contactInfo.pfp);
+      const blob = await response.blob();
+      photoBase64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64 = reader.result.split(',')[1];
+          resolve(base64);
+        };
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.error('Could not load profile picture for vCard', e);
+    }
+
     const vCardData = `BEGIN:VCARD
 VERSION:3.0
 FN:${contactInfo.name}
 N:${contactInfo.name.split(' ')[1]};${contactInfo.name.split(' ')[0]};;;
+ORG:${contactInfo.company}
 TITLE:${contactInfo.title}
-TEL;TYPE=CELL:${contactInfo.phone}
+TEL;TYPE=WORK:${contactInfo.phone}
 EMAIL:${contactInfo.email}
-URL:${contactInfo.website}
-PHOTO;VALUE=URI:${window.location.origin}${contactInfo.pfp}
+URL:${contactInfo.website}${photoBase64 ? `
+PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}` : ''}
 END:VCARD`;
-    const blob = new Blob([vCardData], { type: 'text/vcard' });
-    const url = window.URL.createObjectURL(blob);
+    const vcardBlob = new Blob([vCardData], { type: 'text/vcard' });
+    const url = window.URL.createObjectURL(vcardBlob);
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', 'GraysonPatterson.vcf');
@@ -122,8 +141,8 @@ END:VCARD`;
             <div className="mt-10 space-y-4">
               <ContactItem
                 icon={<Phone size={20} />}
-                label="Mobile"
-                value={contactInfo.phone}
+                label="Work"
+                value="(770) 424-6582 ext. 54391"
                 href={`tel:${contactInfo.phone}`}
                 delay="100"
               />
@@ -137,7 +156,7 @@ END:VCARD`;
               <ContactItem
                 icon={<Globe size={20} />}
                 label="Website"
-                value="degenduffparlays.com"
+                value="auto-owners.com"
                 href={contactInfo.website}
                 delay="300"
                 isExternal
