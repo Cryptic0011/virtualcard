@@ -190,7 +190,7 @@ function ContactItem({ icon, label, value, href, delay, isExternal }) {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-0.5">{label}</p>
-        <p className="text-base font-semibold text-slate-100 truncate group-hover:text-white transition-colors">
+        <p className="text-sm font-semibold text-slate-100 group-hover:text-white transition-colors break-all">
           {value}
         </p>
       </div>

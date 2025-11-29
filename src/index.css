@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+/* Ensure blue background covers entire viewport including overscroll areas */
+html, body {
+  background-color: #0a192f;
+  min-height: 100%;
+  overscroll-behavior: none;
+}
+
+html {
+  min-height: 100vh;
+  min-height: 100dvh; /* Use dynamic viewport height for mobile */
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #0a192f;
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
