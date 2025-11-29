@@ -1,2 +1,0 @@
-# virtualcard
-virtual business card
