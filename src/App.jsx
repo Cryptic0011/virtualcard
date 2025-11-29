@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Phone, Mail, Globe, UserPlus, Share2, ChevronRight, MapPin } from 'lucide-react';
 
 function App() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const contactInfo = {
     name: "Grayson Patterson",
@@ -50,7 +45,7 @@ END:VCARD`;
       </div>
 
       {/* Main Card Container */}
-      <div className={`relative z-10 w-full max-w-md transition-all duration-1000 ease-out transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+      <div className="relative z-10 w-full max-w-md animate-fade-in-up">
 
         {/* Glass Card */}
         <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden ring-1 ring-white/20">
